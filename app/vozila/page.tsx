@@ -1,12 +1,13 @@
 "use client"
 
+import { useState } from "react"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 import { Users, Briefcase } from "lucide-react"
 import Image from "next/image"
-import Link from "next/link"
+import { ReservationModal } from "@/components/reservation-modal"
 
 const vehicles = [
   {
@@ -74,7 +75,7 @@ const vehicles = [
   }
 ]
 
-function VehicleCard({ vehicle, index }: { vehicle: typeof vehicles[0], index: number }) {
+function VehicleCard({ vehicle, index, onReserve }: { vehicle: typeof vehicles[0], index: number, onReserve: () => void }) {
   const { ref, isVisible } = useScrollAnimation()
   
   return (
@@ -129,15 +130,14 @@ function VehicleCard({ vehicle, index }: { vehicle: typeof vehicles[0], index: n
         
         {/* Bottom CTA */}
         <div>
-          <Link href="/kontakt">
-            <Button 
-              variant="ghost" 
-              className="text-white hover:text-white hover:bg-white/20 p-0 h-auto font-medium"
-            >
-              Rezerviši vozilo
-              <span className="ml-2">→</span>
-            </Button>
-          </Link>
+          <Button 
+            variant="ghost" 
+            className="text-white hover:text-white hover:bg-white/20 p-0 h-auto font-medium"
+            onClick={onReserve}
+          >
+            Rezerviši vozilo
+            <span className="ml-2">→</span>
+          </Button>
         </div>
       </div>
     </div>
@@ -146,6 +146,7 @@ function VehicleCard({ vehicle, index }: { vehicle: typeof vehicles[0], index: n
 
 export default function VozilaPage() {
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation()
+  const [reservationOpen, setReservationOpen] = useState(false)
 
   return (
     <main className="min-h-screen bg-background">
@@ -169,11 +170,18 @@ export default function VozilaPage() {
           {/* Vehicles Grid */}
           <div className="flex flex-col gap-6">
             {vehicles.map((vehicle, index) => (
-              <VehicleCard key={vehicle.name} vehicle={vehicle} index={index} />
+              <VehicleCard 
+                key={vehicle.name} 
+                vehicle={vehicle} 
+                index={index} 
+                onReserve={() => setReservationOpen(true)} 
+              />
             ))}
           </div>
         </div>
       </section>
+
+      <ReservationModal open={reservationOpen} onOpenChange={setReservationOpen} />
       
       <Footer />
     </main>

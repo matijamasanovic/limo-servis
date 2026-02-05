@@ -12,7 +12,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { MapPin, Calendar, User, ArrowRight, ArrowLeft, Check } from "lucide-react"
+import { MapPin, Calendar, User, Car, ArrowRight, ArrowLeft, Check } from "lucide-react"
 
 interface ReservationModalProps {
   open: boolean
@@ -24,6 +24,7 @@ interface FormData {
   dropoffLocation: string
   date: string
   time: string
+  vehiclePreference: string
   firstName: string
   lastName: string
   phone: string
@@ -35,6 +36,7 @@ const initialFormData: FormData = {
   dropoffLocation: "",
   date: "",
   time: "",
+  vehiclePreference: "",
   firstName: "",
   lastName: "",
   phone: "",
@@ -52,7 +54,7 @@ export function ReservationModal({ open, onOpenChange }: ReservationModalProps) 
   }
 
   const handleNext = () => {
-    if (step < 3) {
+    if (step < 4) {
       setStep(step + 1)
     }
   }
@@ -83,12 +85,14 @@ export function ReservationModal({ open, onOpenChange }: ReservationModalProps) 
 
   const isStep1Valid = formData.pickupLocation && formData.dropoffLocation
   const isStep2Valid = formData.date && formData.time
-  const isStep3Valid = formData.firstName && formData.lastName && formData.phone
+  const isStep3Valid = formData.vehiclePreference.trim().length > 0
+  const isStep4Valid = formData.firstName && formData.lastName && formData.phone
 
   const stepIndicators = [
     { number: 1, icon: MapPin, label: "Destinacija" },
     { number: 2, icon: Calendar, label: "Datum" },
-    { number: 3, icon: User, label: "Podaci" },
+    { number: 3, icon: Car, label: "Vozilo" },
+    { number: 4, icon: User, label: "Podaci" },
   ]
 
   if (isSubmitted) {
@@ -150,7 +154,7 @@ export function ReservationModal({ open, onOpenChange }: ReservationModalProps) 
               </div>
               {index < stepIndicators.length - 1 && (
                 <div
-                  className={`w-12 sm:w-20 h-0.5 mx-2 mb-6 transition-colors ${
+                  className={`w-8 sm:w-12 h-0.5 mx-1 sm:mx-2 mb-6 transition-colors ${
                     step > indicator.number ? "bg-primary" : "bg-secondary"
                   }`}
                 />
@@ -225,8 +229,32 @@ export function ReservationModal({ open, onOpenChange }: ReservationModalProps) 
           </div>
         )}
 
-        {/* Step 3: Personal Info */}
+        {/* Step 3: Vehicle Preference */}
         {step === 3 && (
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="vehiclePreference" className="text-foreground">
+                Koje vozilo želite?
+              </Label>
+              <div className="relative">
+                <Car className="absolute left-3 top-3 w-4 h-4 text-foreground/40" />
+                <Textarea
+                  id="vehiclePreference"
+                  placeholder="npr. Mercedes E klasa, crna boja, ili bilo koje luksuzno vozilo..."
+                  value={formData.vehiclePreference}
+                  onChange={(e) => updateFormData("vehiclePreference", e.target.value)}
+                  className="pl-10 bg-secondary border-border text-foreground placeholder:text-foreground/40 min-h-[100px] resize-none"
+                />
+              </div>
+              <p className="text-xs text-foreground/50">
+                Opišite željeno vozilo ili tip vozila. Kontaktiraćemo vas ako traženo vozilo nije dostupno.
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* Step 4: Personal Info */}
+        {step === 4 && (
           <div className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
@@ -297,10 +325,14 @@ export function ReservationModal({ open, onOpenChange }: ReservationModalProps) 
             <div />
           )}
 
-          {step < 3 ? (
+          {step < 4 ? (
             <Button
               onClick={handleNext}
-              disabled={step === 1 ? !isStep1Valid : !isStep2Valid}
+              disabled={
+                (step === 1 && !isStep1Valid) ||
+                (step === 2 && !isStep2Valid) ||
+                (step === 3 && !isStep3Valid)
+              }
               className="bg-primary hover:bg-primary/90 text-primary-foreground disabled:opacity-50"
             >
               Dalje
@@ -309,7 +341,7 @@ export function ReservationModal({ open, onOpenChange }: ReservationModalProps) 
           ) : (
             <Button
               onClick={handleSubmit}
-              disabled={!isStep3Valid || isSubmitting}
+              disabled={!isStep4Valid || isSubmitting}
               className="bg-primary hover:bg-primary/90 text-primary-foreground disabled:opacity-50"
             >
               {isSubmitting ? (

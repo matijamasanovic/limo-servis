@@ -1,7 +1,6 @@
 "use client"
 
-import { ArrowRight, Star } from "lucide-react"
-import Link from "next/link"
+import { Star } from "lucide-react"
 import Image from "next/image"
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 
@@ -107,17 +106,6 @@ export function Testimonials() {
           {testimonials.map((testimonial, index) => (
             <TestimonialCard key={index} testimonial={testimonial} index={index} />
           ))}
-        </div>
-
-        {/* TripAdvisor Link */}
-        <div className={`mt-12 text-center transition-all duration-700 delay-500 ${titleVisible ? "opacity-100" : "opacity-0"}`}>
-          <Link
-            href="#"
-            className="inline-flex items-center gap-3 text-primary hover:text-primary/80 transition-colors font-medium text-lg group"
-          >
-            Više recenzija na TripAdvisor-u
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-          </Link>
         </div>
       </div>
     </section>

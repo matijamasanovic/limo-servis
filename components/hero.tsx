@@ -3,8 +3,8 @@
 import { Button } from "@/components/ui/button"
 import { Check } from "lucide-react"
 import Image from "next/image"
-import Link from "next/link"
 import { useEffect, useState } from "react"
+import { ReservationModal } from "@/components/reservation-modal"
 
 const features = [
   "Profesionalni vozači",
@@ -14,6 +14,7 @@ const features = [
 
 export function Hero() {
   const [isLoaded, setIsLoaded] = useState(false)
+  const [reservationOpen, setReservationOpen] = useState(false)
 
   useEffect(() => {
     setIsLoaded(true)
@@ -46,11 +47,13 @@ export function Hero() {
               </p>
 
               <div className={`mt-8 transition-all duration-1000 delay-300 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
-                <Link href="/kontakt">
-                  <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-8 py-6 rounded-full">
-                    Rezervišite vožnju
-                  </Button>
-                </Link>
+                <Button 
+                  size="lg" 
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-8 py-6 rounded-full"
+                  onClick={() => setReservationOpen(true)}
+                >
+                  Rezervišite vožnju
+                </Button>
               </div>
 
               <ul className={`mt-10 flex flex-wrap gap-4 transition-all duration-1000 delay-500 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
@@ -88,6 +91,8 @@ export function Hero() {
           <div className="w-1 h-3 bg-primary rounded-full mt-2 animate-bounce" />
         </div>
       </div>
+
+      <ReservationModal open={reservationOpen} onOpenChange={setReservationOpen} />
     </section>
   )
 }

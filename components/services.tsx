@@ -88,7 +88,7 @@ export function Services() {
         </div>
 
         <div className={`mt-12 text-center transition-all duration-700 delay-500 ${titleVisible ? "opacity-100" : "opacity-0"}`}>
-          <Link href="#" className="inline-flex items-center gap-3 text-primary hover:text-primary/80 transition-colors font-medium text-lg group">
+          <Link href="/usluge" className="inline-flex items-center gap-3 text-primary hover:text-primary/80 transition-colors font-medium text-lg group">
             Pogledaj sve usluge
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </Link>

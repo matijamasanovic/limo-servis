@@ -1,9 +1,10 @@
 "use client"
 
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 import { ClipboardList, CheckCircle2, Luggage, Send } from "lucide-react"
-import Link from "next/link"
+import { ReservationModal } from "@/components/reservation-modal"
 
 const steps = [
   {
@@ -25,6 +26,7 @@ const steps = [
 
 export function Steps() {
   const { ref: sectionRef, isVisible: sectionVisible } = useScrollAnimation(0.1)
+  const [reservationOpen, setReservationOpen] = useState(false)
 
   return (
     <section className="py-20 lg:py-32 bg-background relative overflow-hidden">
@@ -131,17 +133,18 @@ export function Steps() {
           className={`mt-20 text-center transition-all duration-700 delay-700 ${sectionVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
         >
           <p className="text-foreground/60 mb-6">Spremni za putovanje sa stilom?</p>
-          <Link href="/kontakt">
-            <Button 
-              size="lg" 
-              className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 rounded-full"
-            >
-              Rezerviši svoju vožnju
-              <span className="ml-2">→</span>
-            </Button>
-          </Link>
+          <Button 
+            size="lg" 
+            className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 rounded-full"
+            onClick={() => setReservationOpen(true)}
+          >
+            Rezerviši svoju vožnju
+            <span className="ml-2">→</span>
+          </Button>
         </div>
       </div>
+
+      <ReservationModal open={reservationOpen} onOpenChange={setReservationOpen} />
     </section>
   )
 }

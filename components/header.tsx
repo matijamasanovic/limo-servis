@@ -4,9 +4,11 @@ import { useState } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Menu, X } from "lucide-react"
+import { ReservationModal } from "@/components/reservation-modal"
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [reservationOpen, setReservationOpen] = useState(false)
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
@@ -35,11 +37,12 @@ export function Header() {
 
           {/* CTA Button */}
           <div className="hidden lg:block">
-            <Link href="/kontakt">
-              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
-                Rezervišite svoju vožnju →
-              </Button>
-            </Link>
+            <Button 
+              className="bg-primary hover:bg-primary/90 text-primary-foreground"
+              onClick={() => setReservationOpen(true)}
+            >
+              Rezervišite svoju vožnju →
+            </Button>
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -69,15 +72,21 @@ export function Header() {
               <Link href="/kontakt" className="text-foreground/80 hover:text-foreground transition-colors py-2">
                 Kontakt
               </Link>
-              <Link href="/kontakt" className="w-full">
-                <Button className="bg-primary hover:bg-primary/90 text-primary-foreground w-full mt-2">
-                  Rezervišite svoju vožnju →
-                </Button>
-              </Link>
+              <Button 
+                className="bg-primary hover:bg-primary/90 text-primary-foreground w-full mt-2"
+                onClick={() => {
+                  setMobileMenuOpen(false)
+                  setReservationOpen(true)
+                }}
+              >
+                Rezervišite svoju vožnju →
+              </Button>
             </nav>
           </div>
         )}
       </div>
+
+      <ReservationModal open={reservationOpen} onOpenChange={setReservationOpen} />
     </header>
   )
 }

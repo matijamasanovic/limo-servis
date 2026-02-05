@@ -6,64 +6,64 @@ import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import aerodromski from "@/public/aerodromski-transferi.png";
+import eventImg from "@/public/event.png";
+import grupni from "@/public/grupni-transferi.png";
+import limo from "@/public/limo-servis.png";
+import medjunarodni from "@/public/medjunarodni-transferi.png";
+import medjugradski from "@/public/medjugradski-transferi.png";
+import svecane from "@/public/svecane-prilike.png";
+import vozilo from "@/public/vozilo-sa-vozacem.png";
 
 const services = [
   {
     title: "Aerodromski transferi",
     description: "Brz i pouzdan prevoz od i do aerodroma",
-    image:
-      "https://images.unsplash.com/photo-1540962351504-03099e0a754b?w=400&h=400&fit=crop",
+    image: aerodromski,
     slug: "aerodromski-transferi",
   },
   {
     title: "Limo servis",
     description: "Elegancija i diskrecija za posebne prilike",
-    image:
-      "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=400&h=400&fit=crop",
+    image: limo,
     slug: "limo-servis",
   },
   {
     title: "Međugradski transferi",
     description: "Za kraća i duža putovanja na teritoriji Republike Srbije",
-    image:
-      "https://images.unsplash.com/photo-1449965408869-ebd3fee56fd5?w=400&h=400&fit=crop",
+    image: medjugradski,
     slug: "medjugradski-transferi",
   },
   {
     title: "Međunarodni transferi",
     description: "Udobno vas vozimo do različitih međunarodnih destinacija",
-    image:
-      "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=400&h=400&fit=crop",
+    image: medjunarodni,
     slug: "medjunarodni-transferi",
   },
   {
     title: "Najam vozila sa vozačem",
     description:
       "Lični vozač za sve potrebe prevoza u lokalu ili na dužim putovanjima",
-    image:
-      "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=400&fit=crop",
+    image: vozilo,
     slug: "najam-vozila",
   },
   {
     title: "Svečane prilike",
     description: "Za posebne događaje kada želite da ostavite snažan utisak",
-    image:
-      "https://images.unsplash.com/photo-1519741497674-611481863552?w=400&h=400&fit=crop",
+    image: svecane,
     slug: "svecane-prilike",
   },
   {
     title: "Event i biznis transferi",
     description: "Savršeno za poslovna putovanja, konferencije i događaje",
-    image:
-      "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=400&fit=crop",
+    image: eventImg,
     slug: "event-biznis",
   },
   {
     title: "Grupni transferi",
     description:
       "Nekoliko limuzina, luksuzni kombi ili minibus transferi za grupe",
-    image:
-      "https://images.unsplash.com/photo-1559576722-1d4a4c97b834?w=400&h=400&fit=crop",
+    image: grupni,
     slug: "grupni-transferi",
   },
 ];
